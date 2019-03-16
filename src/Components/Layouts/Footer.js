@@ -5,8 +5,7 @@ import {
 	Paper,
 	Tabs,
 	Tab
-} from '@material-ui/core'
-import { defaultProps } from 'recompose';
+} from '@material-ui/core' 
 
 export default ({muscles, onSelect, pageIndex})=>{
 	const onIndexChange = (e, index)=>{

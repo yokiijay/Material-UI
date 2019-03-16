@@ -11,7 +11,6 @@ import {
 	ListItemText,
 	Typography
 } from '@material-ui/core'
-import { onErrorResumeNext } from "rxjs";
 
 // Theme
 const styles = theme => ({
@@ -31,7 +30,17 @@ const styles = theme => ({
 
 
 // Main
-const Exercises = ({ exercises, pageIndex, ...props }) =>
+const Exercises = ({
+	exercises,
+	pageIndex,
+	onSelect,
+	item: {
+		id,
+		title = 'Welcome!',
+		description = 'Please select an exersice from the list on the left.'
+	},
+	...props
+}) =>
 	<Grid container justify='center' spacing={16}>
 		<Grid item xs>
 			<Paper className={props.classes.paper} >
@@ -46,7 +55,11 @@ const Exercises = ({ exercises, pageIndex, ...props }) =>
 							className={props.classes.list}
 						>
 							{exercises.map(({id, title})=>(
-								<ListItem key={id} button>
+								<ListItem
+									key={id}
+									button
+									onClick={()=>onSelect(id)}
+								>
 									<ListItemText primaryTypographyProps={{variant: 'headline'}} primary={title} />
 								</ListItem>
 							))}
@@ -60,7 +73,11 @@ const Exercises = ({ exercises, pageIndex, ...props }) =>
 						className={props.classes.list}
 					>
 						{exercises[pageIndex][1].map(({id, title})=>(
-							<ListItem key={id} button>
+							<ListItem
+								key={id}
+								button
+								onClick={()=>onSelect(id)}
+							>
 								<ListItemText primaryTypographyProps={{variant: 'headline'}} primary={title} />
 							</ListItem>
 						))}
@@ -73,13 +90,13 @@ const Exercises = ({ exercises, pageIndex, ...props }) =>
 				<Typography
 					variant='display1'
 				>
-					Welcome!
+					{title}
 				</Typography>
 				<Typography
 					variant='subheading'
 					style={{marginTop: 20}}
 				>
-					Please select an exercises from the list on the left.
+					{description}
 				</Typography>
 			</Paper>
 		</Grid>

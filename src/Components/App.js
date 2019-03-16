@@ -6,6 +6,7 @@ import { muscles, exercises } from '../store'
 export default class App extends React.Component {
 	state = {
 		exercises,
+		item: {},
 		pageIndex: -1
 	}
 
@@ -17,14 +18,30 @@ export default class App extends React.Component {
 		},{}))
 	}
 
-	handlePage = pageIndex=>{
+	handlePageSelected = pageIndex=>{
+		pageIndex!==-1 && this.handleItemSelected()
 		this.setState({
 			pageIndex
 		})
 	}
+	handleItemSelected = id=>{
+		if(id){
+			console.log(1)
+			this.setState(({exercises})=>({
+				item: exercises.find( ex=>ex.id===id )
+			}))
+		}else {
+			this.setState({
+				item: {
+					title: 'Welcome!',
+					description: 'Please select an exersice from the list on the left.'
+				}
+			})
+		}
+	}
 
 	render() {
-		const { pageIndex } = this.state
+		const { pageIndex, item } = this.state
 
 		return (
 			<Fragment>
@@ -32,11 +49,13 @@ export default class App extends React.Component {
 				<Exercises
 					pageIndex={pageIndex}
 					exercises={this.getExercisesByMuscles()}
+					onSelect={this.handleItemSelected}
+					item={item}
 				/>
 				<Footer
 					muscles={muscles}
 					pageIndex={pageIndex}
-					onSelect={this.handlePage}
+					onSelect={this.handlePageSelected}
 				/>
 			</Fragment>
 		)
