@@ -51,7 +51,7 @@ const Exercises = ({
 						<List
 							key={group}
 							component='nav'
-							subheader={ <ListSubheader component='div'>{group}</ListSubheader> }
+							subheader={ <ListSubheader disableSticky={true} component='div'>{group}</ListSubheader> }
 							className={props.classes.list}
 						>
 							{exercises.map(({id, title})=>(

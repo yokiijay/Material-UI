@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react"
 import { 
-	PlaylistAdd as Add
+	Add
 } from "@material-ui/icons"
 
 // Components
