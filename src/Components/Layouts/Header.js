@@ -9,13 +9,13 @@ import {
 } from "@material-ui/core"
 import Create from '../Exercises/Dialogs/Create'
 
-export default props => (
+export default ({muscles, onCreate}) => (
   <AppBar position="sticky">
     <Toolbar>
       <Typography variant="headline" color="inherit" style={{flex:1}}>
         News
       </Typography>
-      <Create />
+      <Create muscles={muscles} onCreate={onCreate} />
     </Toolbar>
   </AppBar>
 )

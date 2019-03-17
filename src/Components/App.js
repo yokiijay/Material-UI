@@ -11,6 +11,7 @@ export default class App extends React.Component {
 	}
 
 	getExercisesByMuscles(){
+		console.log('getExercisesByMuscles')
 		return Object.entries(this.state.exercises.reduce((prev,now)=>{
 			const { muscles } = now
 			prev[muscles] = prev[muscles] ? [...prev[muscles], now] : [now]
@@ -26,7 +27,6 @@ export default class App extends React.Component {
 	}
 	handleItemSelected = id=>{
 		if(id){
-			console.log(1)
 			this.setState(({exercises})=>({
 				item: exercises.find( ex=>ex.id===id )
 			}))
@@ -39,13 +39,25 @@ export default class App extends React.Component {
 			})
 		}
 	}
+	handleCreate = exersice=>{
+		this.setState((state)=>({
+			...state,
+			exercises: [
+				...state.exercises,
+				exersice
+			]
+		}))
+	}
+
+	componentDidUpdate(){
+		console.log(1)
+	}
 
 	render() {
 		const { pageIndex, item } = this.state
-
 		return (
 			<Fragment>
-				<Header />
+				<Header muscles={muscles} onCreate={this.handleCreate} />
 				<Exercises
 					pageIndex={pageIndex}
 					exercises={this.getExercisesByMuscles()}
